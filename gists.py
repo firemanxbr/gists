@@ -51,7 +51,7 @@ def list_users_gists(user=None):
                             stralign='center')
 
     else:
-        return "Don't found the user: '{0}''".format(user)
+        return "Don't found the user: '{0}'".format(user)
 
 
 def main():
