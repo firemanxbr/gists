@@ -66,10 +66,10 @@ def main():
     args = parser.parse_args()
 
     if args.all:
-        print(json.dumps(req.json(), sort_keys=True, indent=4))
+        print((json.dumps(req.json(), sort_keys=True, indent=4)))
 
     if args.user:
-        print(list_users_gists(user=args.user[0]))
+        print((list_users_gists(user=args.user[0])))
 
 
 if __name__ == '__main__':
