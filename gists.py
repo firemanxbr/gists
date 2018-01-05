@@ -37,9 +37,9 @@ def list_users_gists(user=None):
             description = output['description']
 
             rows.append(['{0}'.format(filename),
-                        '{0}'.format(size),
-                        '{0}'.format(short_url),
-                        '{0}{1}'.format(description[:30],'...')])
+                         '{0}'.format(size),
+                         '{0}'.format(short_url),
+                         '{0}{1}'.format(description[:30], '...')])
 
         if len(rows) == 0:
             return "Don't have gists for '{0}'".format(user)
