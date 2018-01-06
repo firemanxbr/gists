@@ -3,7 +3,6 @@
 from argparse import ArgumentParser
 from tabulate import tabulate
 
-import json
 import requests
 
 
@@ -12,8 +11,30 @@ import requests
 API = 'https://api.github.com/'
 GIT_IO = 'https://git.io/'
 
-# NEED CHANGE
-req = requests.get('https://api.github.com/gists')
+
+def list_public_gists():
+    req = requests.get('{0}gists/public'.format(API))
+
+    if req.status_code == 200:
+        headers = ['File', 'Size', 'URL', 'Description']
+
+        rows = []
+
+        for output in req.json():
+            filename = list(output['files'].keys())[0]
+            size = output['files'][filename]['size']
+            url = output['html_url']
+
+            rows.append(['{0}'.format(filename),
+                         '{0}'.format(size),
+                         '{0}'.format(url)])
+
+        return tabulate(rows, headers, tablefmt='grid',
+                        showindex='always',
+                        numalign='center',
+                        stralign='center')
+    else:
+        return "Don't found the public gists!"
 
 
 def list_users_gists(user=None):
@@ -66,7 +87,7 @@ def main():
     args = parser.parse_args()
 
     if args.all:
-        print((json.dumps(req.json(), sort_keys=True, indent=4)))
+        print(list_public_gists())
 
     if args.user:
         print((list_users_gists(user=args.user[0])))
